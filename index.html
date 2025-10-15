@@ -793,17 +793,33 @@
     </footer>
 
     <script>
-        async function loadNews() {
-            try {
-                const response = await fetch('news/news.json');
-                if (!response.ok) throw new Error('News not found');
-                const newsData = await response.json();
-                displayNews(newsData);
-            } catch (error) {
-                console.log('Δεν υπάρχουν νέα ακόμα');
-                displayNews([]);
+async function loadNews() {
+    try {
+        // Διάβασε τα αρχεία από το GitHub API
+        const response = await fetch('https://api.github.com/repos/paorclub1984/paor-website/contents/news');
+        if (!response.ok) throw new Error('News not found');
+        
+        const files = await response.json();
+        const newsArray = [];
+        
+        // Φόρτωσε κάθε JSON αρχείο
+        for (const file of files) {
+            if (file.name.endsWith('.json') && file.name !== '.gitkeep') {
+                const fileResponse = await fetch(file.download_url);
+                const newsItem = await fileResponse.json();
+                newsArray.push(newsItem);
             }
         }
+        
+        // Ταξινόμηση με την πιο πρόσφατη πρώτη
+        newsArray.sort((a, b) => new Date(b.date) - new Date(a.date));
+        
+        displayNews(newsArray);
+    } catch (error) {
+        console.log('Δεν υπάρχουν νέα ακόμα', error);
+        displayNews([]);
+    }
+}
 
         function displayNews(newsArray) {
             const container = document.getElementById('newsContainer');
