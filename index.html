@@ -799,8 +799,8 @@ async function loadNews() {
         if (!response.ok) throw new Error('News not found');
         const data = await response.json();
         
-        // Υποστήριξη και για array και για object με items
-        const newsArray = Array.isArray(data) ? data : (data.items || []);
+        // Το CMS αποθηκεύει στο news_items
+        const newsArray = data.news_items || [];
         displayNews(newsArray);
     } catch (error) {
         console.log('Δεν υπάρχουν νέα ακόμα', error);
