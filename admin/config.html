@@ -1,0 +1,23 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+locale: 'el'
+
+collections:
+  - name: "news"
+    label: "Νέα"
+    label_singular: "Νέο"
+    folder: "news"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    format: 'json'
+    extension: 'json'
+    fields:
+      - { label: "Τίτλος", name: "title", widget: "string" }
+      - { label: "Ημερομηνία", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - { label: "Περιεχόμενο", name: "body", widget: "text" }
+      - { label: "Εικονίδιο", name: "icon", widget: "select", options: ["📢", "⚽", "🏀", "🎉", "🎭", "🎵", "📚", "🏆", "📅", "🎪", "🌟", "📰"] }
