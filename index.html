@@ -794,21 +794,31 @@
     </footer>
 
     <script>
-        async function loadNews() {
-            try {
-                const response = await fetch('news/news.json');
-                if (!response.ok) throw new Error('News not found');
-                const data = await response.json();
-                const newsArray = data.news_items || [];
-                newsArray.sort(function(a, b) {
-                    return new Date(b.date) - new Date(a.date);
-                });
-                displayNews(newsArray);
-            } catch (error) {
-                console.log('Δεν υπάρχουν νέα ακόμα', error);
-                displayNews([]);
-            }
-        }
+async function loadNews() {
+    try {
+        console.log('🔍 Fetching news...');
+        const response = await fetch('news/news.json?t=' + Date.now());
+        console.log('📡 Response:', response);
+        
+        if (!response.ok) throw new Error('News not found');
+        
+        const data = await response.json();
+        console.log('📦 Data loaded:', data);
+        console.log('📰 News items:', data.news_items);
+        
+        const newsArray = data.news_items || [];
+        console.log('📊 Array length:', newsArray.length);
+        
+        newsArray.sort(function(a, b) {
+            return new Date(b.date) - new Date(a.date);
+        });
+        
+        displayNews(newsArray);
+    } catch (error) {
+        console.error('❌ Error loading news:', error);
+        displayNews([]);
+    }
+}
 
         function displayNews(newsArray) {
             const container = document.getElementById('newsContainer');
