@@ -8,16 +8,19 @@ public_folder: "/images/uploads"
 locale: 'el'
 
 collections:
-  - name: "news"
+  - name: "news_list"
     label: "Νέα"
-    label_singular: "Νέο"
-    folder: "news"
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    format: 'json'
-    extension: 'json'
-    fields:
-      - { label: "Τίτλος", name: "title", widget: "string" }
-      - { label: "Ημερομηνία", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
-      - { label: "Περιεχόμενο", name: "body", widget: "text" }
-      - { label: "Εικονίδιο", name: "icon", widget: "select", options: ["📢", "⚽", "🏀", "🎉", "🎭", "🎵", "📚", "🏆", "📅", "🎪", "🌟", "📰"] }
+    files:
+      - name: "all_news"
+        label: "Λίστα Νέων"
+        file: "news/news.json"
+        fields:
+          - label: "Νέα"
+            name: "news_items"
+            widget: "list"
+            summary: '{{fields.title}} - {{fields.date}}'
+            fields:
+              - { label: "Τίτλος", name: "title", widget: "string" }
+              - { label: "Ημερομηνία", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+              - { label: "Περιεχόμενο", name: "body", widget: "text" }
+              - { label: "Εικονίδιο", name: "icon", widget: "select", options: ["📢", "⚽", "🏀", "🎉", "🎭", "🎵", "📚", "🏆", "📅", "🎪", "🌟", "📰"], default: "📢" }
