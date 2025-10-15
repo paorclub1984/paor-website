@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Πολιτιστικός Αθλητικός Όμιλος Ρεπανιδίου - ΠΑΟΡ. Αθλητισμός, Πολιτισμός, Κοινότητα.">
     <title>ΠΑΟΡ - Πολιτιστικός Αθλητικός Όμιλος Ρεπανιδίου</title>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <style>
         * {
             margin: 0;
@@ -793,113 +794,107 @@
     </footer>
 
     <script>
-    async function loadNews() {
-        try {
-            const response = await fetch('news/news.json');
-            if (!response.ok) throw new Error('News not found');
-            const data = await response.json();
-            
-            // Το CMS αποθηκεύει ως: { news_items: [...] }
-            const newsArray = data.news_items || [];
-            
-            // Ταξινόμηση με το πιο πρόσφατο πρώτα
-            newsArray.sort((a, b) => new Date(b.date) - new Date(a.date));
-            
-            displayNews(newsArray);
-        } catch (error) {
-            console.log('Δεν υπάρχουν νέα ακόμα', error);
-            displayNews([]);
-        }
-    }
-
-    function displayNews(newsArray) {
-        const container = document.getElementById('newsContainer');
-        
-        if (!newsArray || newsArray.length === 0) {
-            container.innerHTML = `
-                <div class="empty-state">
-                    <div class="empty-state-icon">📭</div>
-                    <h3>Δεν υπάρχουν νέα προς το παρόν</h3>
-                    <p>Ελέγξτε ξανά σύντομα!</p>
-                </div>
-            `;
-            return;
-        }
-
-        container.innerHTML = newsArray.map(news => `
-            <div class="news-card">
-                <div class="news-image">${news.icon || '📰'}</div>
-                <div class="news-content">
-                    <div class="news-date">${formatDate(news.date)}</div>
-                    <h3>${news.title}</h3>
-                    <p>${news.body}</p>
-                </div>
-            </div>
-        `).join('');
-    }
-
-    function formatDate(dateString) {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        return new Date(dateString).toLocaleDateString('el-GR', options);
-    }
-
-    function toggleMenu() {
-        const menu = document.querySelector('.nav-menu');
-        menu.classList.toggle('active');
-    }
-
-    window.addEventListener('scroll', () => {
-        const navbar = document.querySelector('.navbar');
-        if (window.scrollY > 50) {
-            navbar.style.boxShadow = '0 4px 20px rgba(255, 215, 0, 0.3)';
-        } else {
-            navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.3)';
-        }
-    });
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                const offset = 80;
-                const targetPosition = target.offsetTop - offset;
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
+        async function loadNews() {
+            try {
+                const response = await fetch('news/news.json');
+                if (!response.ok) throw new Error('News not found');
+                const data = await response.json();
+                const newsArray = data.news_items || [];
+                newsArray.sort(function(a, b) {
+                    return new Date(b.date) - new Date(a.date);
                 });
-                const menu = document.querySelector('.nav-menu');
-                menu.classList.remove('active');
+                displayNews(newsArray);
+            } catch (error) {
+                console.log('Δεν υπάρχουν νέα ακόμα', error);
+                displayNews([]);
+            }
+        }
+
+        function displayNews(newsArray) {
+            const container = document.getElementById('newsContainer');
+            if (!newsArray || newsArray.length === 0) {
+                container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📭</div><h3>Δεν υπάρχουν νέα προς το παρόν</h3><p>Ελέγξτε ξανά σύντομα!</p></div>';
+                return;
+            }
+            container.innerHTML = newsArray.map(function(news) {
+                return '<div class="news-card"><div class="news-image">' + (news.icon || '📰') + '</div><div class="news-content"><div class="news-date">' + formatDate(news.date) + '</div><h3>' + news.title + '</h3><p>' + news.body + '</p></div></div>';
+            }).join('');
+        }
+
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('el-GR', options);
+        }
+
+        function toggleMenu() {
+            const menu = document.querySelector('.nav-menu');
+            menu.classList.toggle('active');
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            alert('Ευχαριστούμε για το μήνυμά σας! Θα επικοινωνήσουμε μαζί σας σύντομα.');
+            event.target.reset();
+        }
+
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 4px 20px rgba(255, 215, 0, 0.3)';
+            } else {
+                navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.3)';
             }
         });
-    });
 
-    function handleSubmit(event) {
-        event.preventDefault();
-        alert('Ευχαριστούμε για το μήνυμά σας! Θα επικοινωνήσουμε μαζί σας σύντομα.');
-        event.target.reset();
-    }
-
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 80;
+                    const targetPosition = target.offsetTop - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                    const menu = document.querySelector('.nav-menu');
+                    menu.classList.remove('active');
+                }
+            });
         });
-    }, observerOptions);
 
-    document.querySelectorAll('.activity-card, .news-card, .stat-box').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'all 0.6s ease';
-        observer.observe(el);
-    });
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
 
-    window.addEventListener('DOMContentLoaded', loadNews);
-</script>
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.activity-card, .news-card, .stat-box').forEach(function(el) {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+
+        window.addEventListener('DOMContentLoaded', loadNews);
+
+        if (window.netlifyIdentity) {
+            window.netlifyIdentity.on("init", function(user) {
+                if (!user) {
+                    window.netlifyIdentity.on("login", function() {
+                        document.location.href = "/admin/";
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>
