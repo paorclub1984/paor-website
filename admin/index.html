@@ -1,12 +1,431 @@
 <!DOCTYPE html>
-<html>
+<html lang="el">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ΠΑΟΡ Admin</title>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ΠΑΟΡ - Admin Panel</title>
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Custom Login Screen */
+        #custom-login {
+            background: #1a1a1a;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(255, 215, 0, 0.3);
+            border: 3px solid #FFD700;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+
+        #custom-login.hidden {
+            display: none;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 30px;
+            filter: drop-shadow(0 0 20px #FFD700);
+        }
+
+        h1 {
+            color: #FFD700;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 900;
+        }
+
+        .subtitle {
+            color: #fff;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            color: #FFD700;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            background: #2a2a2a;
+            border: 2px solid #3a3a3a;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #FFD700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 18px;
+            background: #FFD700;
+            color: #000;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: #FFA500;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+        }
+
+        .btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .help-text {
+            color: #999;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+
+        .help-text a {
+            color: #FFD700;
+            text-decoration: none;
+        }
+
+        .help-text a:hover {
+            text-decoration: underline;
+        }
+
+        .error {
+            background: rgba(231, 76, 60, 0.2);
+            border: 2px solid #e74c3c;
+            color: #e74c3c;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .error.show {
+            display: block;
+        }
+
+        .success {
+            background: rgba(46, 204, 113, 0.2);
+            border: 2px solid #2ecc71;
+            color: #2ecc71;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .success.show {
+            display: block;
+        }
+
+        .instructions {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border-left: 4px solid #FFD700;
+            text-align: left;
+        }
+
+        .instructions h3 {
+            color: #FFD700;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .instructions ol {
+            color: #ccc;
+            padding-left: 20px;
+            line-height: 1.8;
+        }
+
+        .instructions li {
+            margin-bottom: 10px;
+        }
+
+        .instructions code {
+            background: #000;
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #FFD700;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Loading spinner */
+        .spinner {
+            border: 3px solid #3a3a3a;
+            border-top: 3px solid #FFD700;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+            display: none;
+        }
+
+        .spinner.show {
+            display: block;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Hide CMS until logged in */
+        #cms-root {
+            display: none;
+        }
+
+        #cms-root.show {
+            display: block;
+        }
+    </style>
 </head>
 <body>
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <!-- Custom Login Screen -->
+    <div id="custom-login">
+        <img class="logo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='95' fill='%23FFD700'/%3E%3Cpath d='M 60 180 Q 40 160 35 140 Q 30 120 35 100 Q 40 80 55 65 L 45 50 L 50 45 Q 60 55 70 50 Q 75 48 80 50 Q 90 55 85 45 L 90 40 Q 100 50 105 45 L 110 50 Q 115 60 120 55 Q 125 50 130 55 L 135 60 Q 140 65 145 60 L 150 65 Q 155 75 160 70 Q 165 65 165 75 Q 100 130 90 140 Q 80 150 70 165 Q 65 175 60 180 Z M 50 90 Q 55 85 60 90 Q 65 95 60 100 Q 55 105 50 100 Q 45 95 50 90 Z M 75 80 Q 80 75 85 80 Q 90 85 85 90 Q 80 95 75 90 Q 70 85 75 80 Z M 100 70 Q 105 65 110 70 Q 115 75 110 80 Q 105 85 100 80 Q 95 75 100 70 Z M 125 75 Q 130 70 135 75 Q 140 80 135 85 Q 130 90 125 85 Q 120 80 125 75 Z M 145 85 Q 150 80 155 85 Q 160 90 155 95 Q 150 100 145 95 Q 140 90 145 85 Z M 30 50 Q 35 45 40 50 Q 45 55 40 60 Q 35 65 30 60 Q 25 55 30 50 Z M 170 130 Q 175 125 180 130 Q 185 135 180 140 Q 175 145 170 140 Q 165 135 170 130 Z M 185 95 Q 190 90 195 95 Q 200 100 195 105 Q 190 110 185 105 Q 180 100 185 95 Z M 165 50 Q 170 45 175 50 Q 180 55 175 60 Q 170 65 165 60 Q 160 55 165 50 Z' fill='%23000'/%3E%3C/svg%3E" alt="ΠΑΟΡ Logo">
+        
+        <h1>ΠΑΟΡ</h1>
+        <p class="subtitle">Admin Panel - Διαχείριση Περιεχομένου</p>
+
+        <div id="error-message" class="error"></div>
+        <div id="success-message" class="success"></div>
+        <div class="spinner" id="loading"></div>
+
+        <form id="login-form">
+            <div class="form-group">
+                <label for="github-token">GitHub Personal Access Token</label>
+                <input 
+                    type="password" 
+                    id="github-token" 
+                    placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+                    required
+                >
+                <p class="help-text">
+                    Δημιουργήστε το token σας στο 
+                    <a href="https://github.com/settings/tokens/new?scopes=repo" target="_blank">GitHub Settings</a>
+                </p>
+            </div>
+
+            <button type="submit" class="btn">Σύνδεση</button>
+        </form>
+
+        <div class="instructions">
+            <h3>📋 Οδηγίες Δημιουργίας Token</h3>
+            <ol>
+                <li>Πήγαινε στο <a href="https://github.com/settings/tokens/new?scopes=repo" target="_blank">GitHub Settings → Personal Access Tokens</a></li>
+                <li>Κλικ "Generate new token (classic)"</li>
+                <li>Δώσε ένα όνομα: <code>PAOR CMS</code></li>
+                <li>Επίλεξε scope: <code>repo</code> (πλήρης πρόσβαση)</li>
+                <li>Επίλεξε λήξη: <code>No expiration</code> (προαιρετικό)</li>
+                <li>Κλικ "Generate token"</li>
+                <li>Αντίγραψε το token και κάνε paste εδώ!</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- CMS Root (initially hidden) -->
+    <div id="cms-root"></div>
+
+    <script>
+        const loginForm = document.getElementById('login-form');
+        const customLogin = document.getElementById('custom-login');
+        const cmsRoot = document.getElementById('cms-root');
+        const errorMessage = document.getElementById('error-message');
+        const successMessage = document.getElementById('success-message');
+        const loading = document.getElementById('loading');
+
+        // Check if already logged in
+        const storedToken = localStorage.getItem('github-token');
+        if (storedToken) {
+            loginWithToken(storedToken);
+        }
+
+        // Handle login form submission
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const token = document.getElementById('github-token').value.trim();
+            
+            if (!token) {
+                showError('Παρακαλώ εισάγετε το GitHub token σας');
+                return;
+            }
+
+            // Validate token format
+            if (!token.startsWith('ghp_') && !token.startsWith('github_pat_')) {
+                showError('Μη έγκυρο token format. Το token πρέπει να αρχίζει με ghp_ ή github_pat_');
+                return;
+            }
+
+            loginWithToken(token);
+        });
+
+        async function loginWithToken(token) {
+            hideError();
+            hideSuccess();
+            showLoading();
+
+            try {
+                // Test token by making a request to GitHub API
+                const response = await fetch('https://api.github.com/user', {
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Μη έγκυρο token ή δεν έχετε πρόσβαση');
+                }
+
+                const userData = await response.json();
+
+                // Store token
+                localStorage.setItem('github-token', token);
+                localStorage.setItem('github-user', JSON.stringify(userData));
+
+                showSuccess(`Καλώς ήρθες, ${userData.login}! Φόρτωση CMS...`);
+
+                // Initialize CMS
+                setTimeout(() => {
+                    initializeCMS(token);
+                }, 1500);
+
+            } catch (error) {
+                hideLoading();
+                showError('Αποτυχία σύνδεσης: ' + error.message);
+                localStorage.removeItem('github-token');
+                localStorage.removeItem('github-user');
+            }
+        }
+
+        function initializeCMS(token) {
+            // Hide login screen
+            customLogin.classList.add('hidden');
+            cmsRoot.classList.add('show');
+
+            // Initialize Decap CMS with token
+            window.CMS_MANUAL_INIT = true;
+            
+            CMS.init({
+                config: {
+                    backend: {
+                        name: 'github',
+                        repo: 'paorclub1984/paor-website',
+                        branch: 'main',
+                        base_url: '', // No OAuth needed
+                        auth_type: 'implicit',
+                        app_id: ''
+                    }
+                }
+            });
+
+            // Inject token into CMS
+            if (window.netlifyIdentity) {
+                window.netlifyIdentity.currentUser = () => ({
+                    token: token,
+                    email: JSON.parse(localStorage.getItem('github-user')).email,
+                    user_metadata: {
+                        full_name: JSON.parse(localStorage.getItem('github-user')).name
+                    }
+                });
+            }
+
+            // Add logout button
+            setTimeout(addLogoutButton, 2000);
+        }
+
+        function addLogoutButton() {
+            const toolbar = document.querySelector('.css-1799dny');
+            if (toolbar) {
+                const logoutBtn = document.createElement('button');
+                logoutBtn.textContent = 'Αποσύνδεση';
+                logoutBtn.style.cssText = 'padding: 8px 20px; background: #e74c3c; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; margin-left: 10px;';
+                logoutBtn.onclick = logout;
+                toolbar.appendChild(logoutBtn);
+            }
+        }
+
+        function logout() {
+            if (confirm('Είστε σίγουροι ότι θέλετε να αποσυνδεθείτε;')) {
+                localStorage.removeItem('github-token');
+                localStorage.removeItem('github-user');
+                window.location.reload();
+            }
+        }
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.classList.add('show');
+        }
+
+        function hideError() {
+            errorMessage.classList.remove('show');
+        }
+
+        function showSuccess(message) {
+            successMessage.textContent = message;
+            successMessage.classList.add('show');
+        }
+
+        function hideSuccess() {
+            successMessage.classList.remove('show');
+        }
+
+        function showLoading() {
+            loading.classList.add('show');
+            document.querySelector('.btn').disabled = true;
+        }
+
+        function hideLoading() {
+            loading.classList.remove('show');
+            document.querySelector('.btn').disabled = false;
+        }
+    </script>
 </body>
 </html>

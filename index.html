@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Πολιτιστικός Αθλητικός Όμιλος Ρεπανιδίου - ΠΑΟΡ. Αθλητισμός, Πολιτισμός, Κοινότητα.">
+    <meta name="description" content="Πολιτιστικός Αθλητικός Όμιλος Ρεπανιδίου - ΠΑΟΡ. Αθλητισμός και Πολιτισμός από το 1984">
     <title>ΠΑΟΡ - Πολιτιστικός Αθλητικός Όμιλος Ρεπανιδίου</title>
     <style>
         * {
@@ -13,525 +13,113 @@
         }
 
         :root {
-            --primary-color: #000000;
-            --secondary-color: #FFD700;
-            --accent-yellow: #FFC700;
-            --dark-yellow: #E6B800;
-            --light-bg: #FFFACD;
-            --dark-text: #000000;
-            --light-text: #4a4a4a;
-        }
-
-        html {
-            scroll-behavior: smooth;
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-dark: #333;
+            --text-light: #fff;
+            --bg-light: #f8f9fa;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: var(--dark-text);
-            overflow-x: hidden;
+            color: var(--text-dark);
         }
 
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
+        /* Navigation */
+        nav {
             background: var(--primary-color);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            color: var(--text-light);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
             z-index: 1000;
-            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        .nav-container {
+        nav .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 1rem 2rem;
+            padding: 0 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .nav-logo {
+        nav .logo {
             display: flex;
             align-items: center;
             gap: 15px;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--secondary-color);
-            text-decoration: none;
         }
 
-        .nav-logo img {
+        nav .logo img {
             width: 50px;
             height: 50px;
         }
 
-        .nav-menu {
+        nav .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        nav ul {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 30px;
         }
 
-        .nav-menu a {
-            color: white;
+        nav a {
+            color: var(--text-light);
             text-decoration: none;
+            transition: color 0.3s;
             font-weight: 500;
-            transition: all 0.3s;
-            position: relative;
-            padding: 5px 0;
         }
 
-        .nav-menu a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--secondary-color);
-            transition: width 0.3s;
-        }
-
-        .nav-menu a:hover::after {
-            width: 100%;
-        }
-
-        .nav-menu a:hover {
+        nav a:hover {
             color: var(--secondary-color);
         }
 
-        .mobile-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 5px;
-        }
-
-        .mobile-toggle span {
-            width: 25px;
-            height: 3px;
-            background: var(--secondary-color);
-            transition: all 0.3s;
-        }
-
+        /* Hero Section */
         .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
-            position: relative;
-            overflow: hidden;
-            padding-top: 80px;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.15) 0%, transparent 50%);
-        }
-
-        .hero-content {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--text-light);
+            padding: 150px 20px 100px;
             text-align: center;
-            color: white;
-            z-index: 1;
-            padding: 2rem;
-            animation: fadeInUp 1s ease;
-        }
-
-        .hero-logo {
-            width: 200px;
-            height: 200px;
-            margin-bottom: 2rem;
-            animation: floatAnimation 3s ease-in-out infinite;
-            filter: drop-shadow(0 10px 30px rgba(255, 215, 0, 0.5));
+            margin-top: 70px;
         }
 
         .hero h1 {
             font-size: 3.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-            color: var(--secondary-color);
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease;
         }
 
         .hero p {
             font-size: 1.5rem;
-            margin-bottom: 2rem;
-            opacity: 0.95;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.2s;
+            animation-fill-mode: backwards;
         }
 
-        .hero-subtitle {
-            font-size: 1.2rem;
-            margin-bottom: 3rem;
-            opacity: 0.9;
-            color: var(--light-bg);
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 1rem 2.5rem;
+        .hero .cta {
+            display: inline-block;
+            background: var(--accent-color);
+            color: var(--text-light);
+            padding: 15px 40px;
             border-radius: 50px;
             text-decoration: none;
+            font-size: 1.1rem;
             font-weight: 600;
-            transition: all 0.3s;
-            display: inline-block;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 1s ease 0.4s;
+            animation-fill-mode: backwards;
         }
 
-        .btn-primary {
-            background: var(--secondary-color);
-            color: var(--primary-color);
-            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
-        }
-
-        .btn-primary:hover {
+        .hero .cta:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.6);
-            background: var(--accent-yellow);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--secondary-color);
-            border: 2px solid var(--secondary-color);
-        }
-
-        .btn-secondary:hover {
-            background: var(--secondary-color);
-            color: var(--primary-color);
-            transform: translateY(-3px);
-        }
-
-        section {
-            padding: 5rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            position: relative;
-            padding-bottom: 1rem;
-            color: var(--primary-color);
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--secondary-color), var(--dark-yellow));
-            border-radius: 2px;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .about-text p {
-            margin-bottom: 1rem;
-            line-height: 1.8;
-            color: var(--light-text);
-        }
-
-        .about-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .stat-box {
-            text-align: center;
-            padding: 1.5rem;
-            background: var(--primary-color);
-            border-radius: 15px;
-            transition: transform 0.3s;
-            border: 3px solid var(--secondary-color);
-        }
-
-        .stat-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: var(--secondary-color);
-        }
-
-        .stat-label {
-            color: white;
-            margin-top: 0.5rem;
-        }
-
-        .activities {
-            background: var(--light-bg);
-        }
-
-        .activities-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .activity-card {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border: 3px solid transparent;
-        }
-
-        .activity-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
-            border-color: var(--secondary-color);
-        }
-
-        .activity-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .activity-card h3 {
-            margin-bottom: 1rem;
-            color: var(--primary-color);
-        }
-
-        .activity-card p {
-            color: var(--light-text);
-            line-height: 1.6;
-        }
-
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .news-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-            border: 3px solid transparent;
-        }
-
-        .news-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
-            border-color: var(--secondary-color);
-        }
-
-        .news-image {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, var(--primary-color), #333);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: var(--secondary-color);
-        }
-
-        .news-content {
-            padding: 1.5rem;
-        }
-
-        .news-date {
-            color: var(--light-text);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .news-card h3 {
-            margin-bottom: 1rem;
-            color: var(--primary-color);
-        }
-
-        .news-card p {
-            color: var(--light-text);
-            line-height: 1.6;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 4rem 2rem;
-            color: var(--light-text);
-        }
-
-        .empty-state-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-        }
-
-        .contact {
-            background: var(--light-bg);
-        }
-
-        .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-        }
-
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            padding: 1.5rem;
-            background: white;
-            border-radius: 10px;
-            border-left: 4px solid var(--secondary-color);
-        }
-
-        .contact-icon {
-            font-size: 1.5rem;
-            color: var(--primary-color);
-            min-width: 40px;
-        }
-
-        .contact-form {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 1rem;
-        }
-
-        .form-group label {
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-
-        .form-group input,
-        .form-group textarea {
-            padding: 1rem;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            font-family: inherit;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--secondary-color);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        footer {
-            background: var(--primary-color);
-            color: white;
-            padding: 3rem 2rem 1rem;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: var(--secondary-color);
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .social-icon {
-            width: 40px;
-            height: 40px;
-            background: rgba(255,215,0,0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--secondary-color);
-            text-decoration: none;
-            font-size: 1.2rem;
-            transition: all 0.3s;
-            border: 2px solid var(--secondary-color);
-        }
-
-        .social-icon:hover {
-            background: var(--secondary-color);
-            color: var(--primary-color);
-            transform: translateY(-3px);
-        }
-
-        .copyright {
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,215,0,0.2);
-            color: rgba(255,255,255,0.7);
-        }
-
-        .loading {
-            text-align: center;
-            padding: 2rem;
-            color: var(--light-text);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
         @keyframes fadeInUp {
@@ -545,35 +133,160 @@
             }
         }
 
-        @keyframes floatAnimation {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
+        section {
+            padding: 80px 0;
+        }
+
+        section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        /* Cards */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        /* About Section */
+        #about {
+            background: var(--bg-light);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-image {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* News Section */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .news-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .news-content {
+            padding: 20px;
+        }
+
+        .news-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .news-date {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        /* Contact Section */
+        #contact {
+            background: var(--primary-color);
+            color: var(--text-light);
+        }
+
+        #contact h2 {
+            color: var(--text-light);
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .contact-item {
+            padding: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+
+        .contact-item i {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a252f;
+            color: var(--text-light);
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .nav-menu {
-                position: fixed;
-                left: -100%;
-                top: 70px;
+            nav ul {
                 flex-direction: column;
-                background: var(--primary-color);
-                width: 100%;
-                text-align: center;
-                transition: 0.3s;
-                box-shadow: 0 10px 27px rgba(0,0,0,0.3);
-                padding: 2rem 0;
-            }
-
-            .nav-menu.active {
-                left: 0;
-            }
-
-            .mobile-toggle {
-                display: flex;
+                gap: 10px;
             }
 
             .hero h1 {
@@ -581,336 +294,153 @@
             }
 
             .hero p {
-                font-size: 1.2rem;
+                font-size: 1rem;
             }
 
-            .hero-logo {
-                width: 150px;
-                height: 150px;
-            }
-
-            .about-content,
-            .contact-content {
+            .about-content {
                 grid-template-columns: 1fr;
-            }
-
-            .about-stats {
-                grid-template-columns: 1fr;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
             }
         }
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#" class="nav-logo">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='95' fill='%23FFD700'/%3E%3Cpath d='M 60 180 Q 40 160 35 140 Q 30 120 35 100 Q 40 80 55 65 L 45 50 L 50 45 Q 60 55 70 50 Q 75 48 80 50 Q 90 55 85 45 L 90 40 Q 100 50 105 45 L 110 50 Q 115 60 120 55 Q 125 50 130 55 L 135 60 Q 140 65 145 60 L 150 65 Q 155 75 160 70 Q 165 65 165 75 Q 100 130 90 140 Q 80 150 70 165 Q 65 175 60 180 Z M 50 90 Q 55 85 60 90 Q 65 95 60 100 Q 55 105 50 100 Q 45 95 50 90 Z M 75 80 Q 80 75 85 80 Q 90 85 85 90 Q 80 95 75 90 Q 70 85 75 80 Z M 100 70 Q 105 65 110 70 Q 115 75 110 80 Q 105 85 100 80 Q 95 75 100 70 Z M 125 75 Q 130 70 135 75 Q 140 80 135 85 Q 130 90 125 85 Q 120 80 125 75 Z M 145 85 Q 150 80 155 85 Q 160 90 155 95 Q 150 100 145 95 Q 140 90 145 85 Z M 30 50 Q 35 45 40 50 Q 45 55 40 60 Q 35 65 30 60 Q 25 55 30 50 Z M 170 130 Q 175 125 180 130 Q 185 135 180 140 Q 175 145 170 140 Q 165 135 170 130 Z M 185 95 Q 190 90 195 95 Q 200 100 195 105 Q 190 110 185 105 Q 180 100 185 95 Z M 165 50 Q 170 45 175 50 Q 180 55 175 60 Q 170 65 165 60 Q 160 55 165 50 Z' fill='%23000'/%3E%3C/svg%3E" alt="ΠΑΟΡ">
-                ΠΑΟΡ
-            </a>
-            <ul class="nav-menu">
-                <li><a href="#about">Σχετικά</a></li>
-                <li><a href="#activities">Δραστηριότητες</a></li>
-                <li><a href="#news">Νέα</a></li>
-                <li><a href="#contact">Επικοινωνία</a></li>
-            </ul>
-            <div class="mobile-toggle" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='95' fill='%23000'/%3E%3Cpath d='M 60 180 Q 40 160 35 140 Q 30 120 35 100 Q 40 80 55 65 L 45 50 L 50 45 Q 60 55 70 50 Q 75 48 80 50 Q 90 55 85 45 L 90 40 Q 100 50 105 45 L 110 50 Q 115 60 120 55 Q 125 50 130 55 L 135 60 Q 140 65 145 60 L 150 65 Q 155 75 160 70 Q 165 65 165 75 Q 100 130 90 140 Q 80 150 70 165 Q 65 175 60 180 Z M 50 90 Q 55 85 60 90 Q 65 95 60 100 Q 55 105 50 100 Q 45 95 50 90 Z M 75 80 Q 80 75 85 80 Q 90 85 85 90 Q 80 95 75 90 Q 70 85 75 80 Z M 100 70 Q 105 65 110 70 Q 115 75 110 80 Q 105 85 100 80 Q 95 75 100 70 Z M 125 75 Q 130 70 135 75 Q 140 80 135 85 Q 130 90 125 85 Q 120 80 125 75 Z M 145 85 Q 150 80 155 85 Q 160 90 155 95 Q 150 100 145 95 Q 140 90 145 85 Z M 30 50 Q 35 45 40 50 Q 45 55 40 60 Q 35 65 30 60 Q 25 55 30 50 Z M 170 130 Q 175 125 180 130 Q 185 135 180 140 Q 175 145 170 140 Q 165 135 170 130 Z M 185 95 Q 190 90 195 95 Q 200 100 195 105 Q 190 110 185 105 Q 180 100 185 95 Z M 165 50 Q 170 45 175 50 Q 180 55 175 60 Q 170 65 165 60 Q 160 55 165 50 Z' fill='%23fff'/%3E%3C/svg%3E" alt="ΠΑΟΡ">
+                <h1>ΠΑΟΡ</h1>
             </div>
+            <ul>
+                <li><a href="#home">Αρχική</a></li>
+                <li><a href="#about">Σχετικά</a></li>
+                <li><a href="#news">Νέα</a></li>
+                <li><a href="documents.html">Έγγραφα</a></li>
+                <li><a href="#contact">Επικοινωνία</a></li>
+                <li><a href="admin/" style="color: #e74c3c;">🔐 Admin</a></li>
+            </ul>
         </div>
     </nav>
 
-    <section class="hero">
-        <div class="hero-content">
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='95' fill='%23FFD700'/%3E%3Cpath d='M 60 180 Q 40 160 35 140 Q 30 120 35 100 Q 40 80 55 65 L 45 50 L 50 45 Q 60 55 70 50 Q 75 48 80 50 Q 90 55 85 45 L 90 40 Q 100 50 105 45 L 110 50 Q 115 60 120 55 Q 125 50 130 55 L 135 60 Q 140 65 145 60 L 150 65 Q 155 75 160 70 Q 165 65 165 75 Q 100 130 90 140 Q 80 150 70 165 Q 65 175 60 180 Z M 50 90 Q 55 85 60 90 Q 65 95 60 100 Q 55 105 50 100 Q 45 95 50 90 Z M 75 80 Q 80 75 85 80 Q 90 85 85 90 Q 80 95 75 90 Q 70 85 75 80 Z M 100 70 Q 105 65 110 70 Q 115 75 110 80 Q 105 85 100 80 Q 95 75 100 70 Z M 125 75 Q 130 70 135 75 Q 140 80 135 85 Q 130 90 125 85 Q 120 80 125 75 Z M 145 85 Q 150 80 155 85 Q 160 90 155 95 Q 150 100 145 95 Q 140 90 145 85 Z M 30 50 Q 35 45 40 50 Q 45 55 40 60 Q 35 65 30 60 Q 25 55 30 50 Z M 170 130 Q 175 125 180 130 Q 185 135 180 140 Q 175 145 170 140 Q 165 135 170 130 Z M 185 95 Q 190 90 195 95 Q 200 100 195 105 Q 190 110 185 105 Q 180 100 185 95 Z M 165 50 Q 170 45 175 50 Q 180 55 175 60 Q 170 65 165 60 Q 160 55 165 50 Z' fill='%23000'/%3E%3C/svg%3E" alt="ΠΑΟΡ Logo" class="hero-logo">
-            <h1>Πολιτιστικός Αθλητικός Όμιλος Ρεπανιδίου</h1>
-            <p>Ρεπανίδι, Λήμνος</p>
-            <p class="hero-subtitle">Ενωμένοι μέσα από τον αθλητισμό και τον πολιτισμό</p>
-            <div class="cta-buttons">
-                <a href="#contact" class="btn btn-primary">Επικοινωνήστε μαζί μας</a>
-                <a href="#about" class="btn btn-secondary">Μάθετε περισσότερα</a>
-            </div>
-        </div>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>ΠΑΟΡ</h1>
+        <p>Πολιτιστικός Αθλητικός Όμιλος Ρεπανιδίου</p>
+        <p style="font-size: 1.2rem; opacity: 0.9;">Από το 1984 στην υπηρεσία του αθλητισμού και του πολιτισμού</p>
+        <a href="#about" class="cta">Μάθετε περισσότερα</a>
     </section>
 
-    <section id="about">
-        <h2 class="section-title">Σχετικά με εμάς</h2>
-        <div class="about-content">
-            <div class="about-text">
-                <p>
-                    Ο Πολιτιστικός Αθλητικός Όμιλος Ρεπανιδίου (ΠΑΟΡ) ιδρύθηκε με σκοπό την προαγωγή του αθλητισμού και του πολιτισμού στην τοπική κοινότητα του Ρεπανιδίου, Λήμνος.
-                </p>
-                <p>
-                    Με πάθος και αφοσίωση, δημιουργούμε ευκαιρίες για όλες τις ηλικίες να συμμετέχουν σε αθλητικές και πολιτιστικές δραστηριότητες, ενισχύοντας τον κοινωνικό ιστό και την τοπική ταυτότητα.
-                </p>
-                <p>
-                    Από αθλητικά events έως πολιτιστικές εκδηλώσεις, ο ΠΑΟΡ είναι ο παλμός της κοινότητάς μας.
-                </p>
-            </div>
-            <div class="about-stats">
-                <div class="stat-box">
-                    <div class="stat-number">15+</div>
-                    <div class="stat-label">Χρόνια λειτουργίας</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-number">200+</div>
-                    <div class="stat-label">Μέλη</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-number">50+</div>
-                    <div class="stat-label">Events ετησίως</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-number">5</div>
-                    <div class="stat-label">Αθλητικά τμήματα</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="activities" class="activities">
-        <h2 class="section-title">Οι Δραστηριότητές μας</h2>
-        <div class="activities-grid">
-            <div class="activity-card">
-                <div class="activity-icon">⚽</div>
-                <h3>Ποδόσφαιρο</h3>
-                <p>Ακαδημίες ποδοσφαίρου για παιδιά και ενήλικες. Προπονήσεις και τοπικά πρωταθλήματα.</p>
-            </div>
-            <div class="activity-card">
-                <div class="activity-icon">🏀</div>
-                <h3>Μπάσκετ</h3>
-                <p>Τμήμα μπάσκετ με έμπειρους προπονητές και συμμετοχή σε περιφερειακά πρωταθλήματα.</p>
-            </div>
-            <div class="activity-card">
-                <div class="activity-icon">🎭</div>
-                <h3>Πολιτισμός</h3>
-                <p>Θεατρικές παραστάσεις, εκδηλώσεις και πολιτιστικά δρώμενα καθ' όλη τη διάρκεια του έτους.</p>
-            </div>
-            <div class="activity-card">
-                <div class="activity-icon">🎵</div>
-                <h3>Μουσική</h3>
-                <p>Χορωδία, μουσικά σύνολα και εκπαιδευτικά προγράμματα για παιδιά και νέους.</p>
-            </div>
-            <div class="activity-card">
-                <div class="activity-icon">🏃</div>
+    <!-- Features Section -->
+    <section class="container">
+        <h2>Οι Δραστηριότητές μας</h2>
+        <div class="cards">
+            <div class="card">
+                <div class="card-icon">⚽</div>
                 <h3>Αθλητισμός</h3>
-                <p>Προγράμματα φυσικής κατάστασης, αγώνες δρόμου και δραστηριότητες στη φύση.</p>
+                <p>Προωθούμε τον αθλητισμό σε όλες τις ηλικίες με ποιοτικές προπονήσεις και συμμετοχή σε τοπικά πρωταθλήματα.</p>
             </div>
-            <div class="activity-card">
-                <div class="activity-icon">📚</div>
-                <h3>Εκπαίδευση</h3>
-                <p>Σεμινάρια, workshops και εκπαιδευτικά προγράμματα για την κοινότητα.</p>
+            <div class="card">
+                <div class="card-icon">🎭</div>
+                <h3>Πολιτισμός</h3>
+                <p>Διοργανώνουμε πολιτιστικές εκδηλώσεις που προβάλλουν την τοπική παράδοση και ενώνουν την κοινότητα.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">👥</div>
+                <h3>Κοινωνία</h3>
+                <p>Δημιουργούμε δεσμούς αλληλεγγύης και συνεργασίας μεταξύ των κατοίκων του Ρεπανιδίου.</p>
             </div>
         </div>
     </section>
 
-    <section id="news">
-        <h2 class="section-title">Νέα & Ανακοινώσεις</h2>
-        <div id="newsContainer" class="news-grid">
-            <div class="loading">Φόρτωση νέων...</div>
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2>Σχετικά με εμάς</h2>
+            <div class="about-content">
+                <div>
+                    <p class="about-text">
+                        Ο Πολιτιστικός Αθλητικός Όμιλος Ρεπανιδίου (ΠΑΟΡ) ιδρύθηκε το <strong>1984</strong> με σκοπό την προώθηση του αθλητισμού και του πολιτισμού στην περιοχή μας.
+                    </p>
+                    <p class="about-text" style="margin-top: 20px;">
+                        Με <strong>40+ χρόνια</strong> παρουσίας, έχουμε καταφέρει να δημιουργήσουμε μια ισχυρή κοινότητα αθλητών, πολιτιστικών φορέων και ενεργών πολιτών που συμβάλλουν στην ανάπτυξη της περιοχής.
+                    </p>
+                    <p class="about-text" style="margin-top: 20px;">
+                        Το όραμά μας είναι να συνεχίσουμε να προσφέρουμε ποιοτικές υπηρεσίες στα μέλη μας και να εμπνέουμε τις νέες γενιές να αγαπήσουν τον αθλητισμό και τον πολιτισμό.
+                    </p>
+                </div>
+                <div>
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'%3E%3Crect fill='%233498db' width='600' height='400'/%3E%3Ctext x='300' y='200' font-family='Arial' font-size='40' fill='white' text-anchor='middle'%3EΠΑΟΡ%3C/text%3E%3Ctext x='300' y='250' font-family='Arial' font-size='24' fill='white' text-anchor='middle' opacity='0.8'%3Eimage placeholder%3C/text%3E%3C/svg%3E" alt="ΠΑΟΡ" class="about-image">
+                </div>
+            </div>
         </div>
     </section>
 
-    <section id="contact" class="contact">
-        <h2 class="section-title">Επικοινωνία</h2>
-        <div class="contact-content">
+    <!-- News Section -->
+    <section class="container" id="news">
+        <h2>Τελευταία Νέα</h2>
+        <div class="news-grid">
+            <div class="news-card">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'%3E%3Crect fill='%2395a5a6' width='400' height='200'/%3E%3Ctext x='200' y='110' font-family='Arial' font-size='24' fill='white' text-anchor='middle'%3ENews Image%3C/text%3E%3C/svg%3E" alt="News">
+                <div class="news-content">
+                    <h3>Έναρξη νέας αγωνιστικής περιόδου</h3>
+                    <p class="news-date">15 Οκτωβρίου 2025</p>
+                    <p>Ξεκίνησε η νέα αγωνιστική περιόδου με νέες ομάδες και φιλοδοξίες...</p>
+                </div>
+            </div>
+            <div class="news-card">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'%3E%3Crect fill='%2395a5a6' width='400' height='200'/%3E%3Ctext x='200' y='110' font-family='Arial' font-size='24' fill='white' text-anchor='middle'%3ENews Image%3C/text%3E%3C/svg%3E" alt="News">
+                <div class="news-content">
+                    <h3>Πολιτιστική εκδήλωση στο χωριό</h3>
+                    <p class="news-date">10 Οκτωβρίου 2025</p>
+                    <p>Επιτυχημένη η πολιτιστική εκδήλωση που διοργανώσαμε το περασμένο Σάββατο...</p>
+                </div>
+            </div>
+            <div class="news-card">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'%3E%3Crect fill='%2395a5a6' width='400' height='200'/%3E%3Ctext x='200' y='110' font-family='Arial' font-size='24' fill='white' text-anchor='middle'%3ENews Image%3C/text%3E%3C/svg%3E" alt="News">
+                <div class="news-content">
+                    <h3>Νέες εγγραφές μελών</h3>
+                    <p class="news-date">5 Οκτωβρίου 2025</p>
+                    <p>Ξεκίνησαν οι εγγραφές νέων μελών για την περίοδο 2025-2026...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2>Επικοινωνία</h2>
             <div class="contact-info">
                 <div class="contact-item">
-                    <div class="contact-icon">📍</div>
-                    <div>
-                        <h3>Διεύθυνση</h3>
-                        <p>Ρεπανίδι Λήμνου<br>Α/Α Κατ. Μητρώου Σωματείων: 333</p>
-                    </div>
+                    <i>📍</i>
+                    <h3>Διεύθυνση</h3>
+                    <p>Ρεπανίδι Λήμνου<br>81400, Ελλάδα</p>
                 </div>
                 <div class="contact-item">
-                    <div class="contact-icon">📧</div>
-                    <div>
-                        <h3>Email</h3>
-                        <p>info@paor.gr</p>
-                    </div>
+                    <i>📧</i>
+                    <h3>Email</h3>
+                    <p>info@paor.gr</p>
                 </div>
                 <div class="contact-item">
-                    <div class="contact-icon">📱</div>
-                    <div>
-                        <h3>Τηλέφωνο</h3>
-                        <p>+30 XXX XXX XXXX</p>
-                    </div>
+                    <i>📱</i>
+                    <h3>Κοινωνικά Δίκτυα</h3>
+                    <p>Facebook | Instagram</p>
                 </div>
                 <div class="contact-item">
-                    <div class="contact-icon">🕒</div>
-                    <div>
-                        <h3>Ώρες Λειτουργίας</h3>
-                        <p>Δευτέρα - Παρασκευή: 17:00 - 21:00<br>Σαββατοκύριακο: 10:00 - 14:00</p>
-                    </div>
+                    <i>🏛️</i>
+                    <h3>Α/Μ Καταστήματος</h3>
+                    <p>333</p>
                 </div>
-            </div>
-            <div class="contact-form">
-                <form onsubmit="handleSubmit(event)">
-                    <div class="form-group">
-                        <label for="name">Ονοματεπώνυμο</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="subject">Θέμα</label>
-                        <input type="text" id="subject" name="subject" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Μήνυμα</label>
-                        <textarea id="message" name="message" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">Αποστολή Μηνύματος</button>
-                </form>
             </div>
         </div>
     </section>
 
+    <!-- Footer -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="#about">Σχετικά</a>
-                <a href="#activities">Δραστηριότητες</a>
-                <a href="#news">Νέα</a>
-                <a href="#contact">Επικοινωνία</a>
-            </div>
-            <div class="social-links">
-                <a href="#" class="social-icon">f</a>
-                <a href="#" class="social-icon">📷</a>
-                <a href="#" class="social-icon">▶</a>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2025 Πολιτιστικός Αθλητικός Όμιλος Ρεπανιδίου (ΠΑΟΡ). Όλα τα δικαιώματα διατηρούνται.</p>
-            </div>
+        <div class="container">
+            <p>&copy; 2025 ΠΑΟΡ - Πολιτιστικός Αθλητικός Όμιλος Ρεπανιδίου</p>
+            <p>Όλα τα δικαιώματα διατηρούνται</p>
         </div>
     </footer>
-
-    <script>
-async function loadNews() {
-    try {
-        // Διάβασε τα αρχεία από το GitHub API
-        const response = await fetch('https://api.github.com/repos/paorclub1984/paor-website/contents/news');
-        if (!response.ok) throw new Error('News not found');
-        
-        const files = await response.json();
-        const newsArray = [];
-        
-        // Φόρτωσε κάθε JSON αρχείο
-        for (const file of files) {
-            if (file.name.endsWith('.json') && file.name !== '.gitkeep') {
-                const fileResponse = await fetch(file.download_url);
-                const newsItem = await fileResponse.json();
-                newsArray.push(newsItem);
-            }
-        }
-        
-        // Ταξινόμηση με την πιο πρόσφατη πρώτη
-        newsArray.sort((a, b) => new Date(b.date) - new Date(a.date));
-        
-        displayNews(newsArray);
-    } catch (error) {
-        console.log('Δεν υπάρχουν νέα ακόμα', error);
-        displayNews([]);
-    }
-}
-
-        function displayNews(newsArray) {
-            const container = document.getElementById('newsContainer');
-            
-            if (!newsArray || newsArray.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-state-icon">📭</div>
-                        <h3>Δεν υπάρχουν νέα προς το παρόν</h3>
-                        <p>Ελέγξτε ξανά σύντομα!</p>
-                    </div>
-                `;
-                return;
-            }
-
-            container.innerHTML = newsArray.map(news => `
-                <div class="news-card">
-                    <div class="news-image">${news.icon || '📰'}</div>
-                    <div class="news-content">
-                        <div class="news-date">${formatDate(news.date)}</div>
-                        <h3>${news.title}</h3>
-                        <p>${news.body}</p>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function formatDate(dateString) {
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            return new Date(dateString).toLocaleDateString('el-GR', options);
-        }
-
-        function toggleMenu() {
-            const menu = document.querySelector('.nav-menu');
-            menu.classList.toggle('active');
-        }
-
-        window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.style.boxShadow = '0 4px 20px rgba(255, 215, 0, 0.3)';
-            } else {
-                navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.3)';
-            }
-        });
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    const offset = 80;
-                    const targetPosition = target.offsetTop - offset;
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                    const menu = document.querySelector('.nav-menu');
-                    menu.classList.remove('active');
-                }
-            });
-        });
-
-        function handleSubmit(event) {
-            event.preventDefault();
-            alert('Ευχαριστούμε για το μήνυμά σας! Θα επικοινωνήσουμε μαζί σας σύντομα.');
-            event.target.reset();
-        }
-
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.activity-card, .news-card, .stat-box').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'all 0.6s ease';
-            observer.observe(el);
-        });
-
-        window.addEventListener('DOMContentLoaded', loadNews);
-    </script>
 </body>
 </html>

@@ -1,23 +1,97 @@
+# Decap CMS Configuration - Χωρίς Netlify
+# Χρήση GitHub Personal Access Token
+
 backend:
-  name: git-gateway
+  name: github
+  repo: paorclub1984/paor-website
   branch: main
+  # Χρήση Personal Access Token - χωρίς OAuth
+  # Το token θα ζητηθεί κατά την πρώτη σύνδεση
 
-media_folder: "images/uploads"
-public_folder: "/images/uploads"
+# Ρυθμίσεις μέσων
+media_folder: "assets/images"
+public_folder: "/assets/images"
 
+# Ελληνική γλώσσα
 locale: 'el'
 
+# Collections
 collections:
+  # Αρχική σελίδα
+  - name: "pages"
+    label: "Σελίδες"
+    files:
+      - label: "Αρχική Σελίδα"
+        name: "home"
+        file: "content/home.md"
+        fields:
+          - {label: "Τίτλος", name: "title", widget: "string"}
+          - {label: "Υπότιτλος", name: "subtitle", widget: "string"}
+          - {label: "Περιγραφή", name: "description", widget: "text"}
+          
+      - label: "Σχετικά με εμάς"
+        name: "about"
+        file: "content/about.md"
+        fields:
+          - {label: "Τίτλος", name: "title", widget: "string"}
+          - {label: "Περιεχόμενο", name: "body", widget: "markdown"}
+          
+      - label: "Επικοινωνία"
+        name: "contact"
+        file: "content/contact.md"
+        fields:
+          - {label: "Email", name: "email", widget: "string"}
+          - {label: "Τηλέφωνο", name: "phone", widget: "string"}
+          - {label: "Διεύθυνση", name: "address", widget: "text"}
+
+  # Νέα & Ανακοινώσεις
   - name: "news"
     label: "Νέα"
-    label_singular: "Νέο"
-    folder: "news"
+    folder: "content/news"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    format: 'json'
-    extension: 'json'
     fields:
-      - { label: "Τίτλος", name: "title", widget: "string" }
-      - { label: "Ημερομηνία", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
-      - { label: "Περιεχόμενο", name: "body", widget: "text" }
-      - { label: "Εικονίδιο", name: "icon", widget: "select", options: ["📢", "⚽", "🏀", "🎉", "🎭", "🎵", "📚", "🏆", "📅", "🎪", "🌟", "📰"] }
+      - {label: "Τίτλος", name: "title", widget: "string"}
+      - {label: "Ημερομηνία", name: "date", widget: "datetime"}
+      - {label: "Εικόνα", name: "image", widget: "image", required: false}
+      - {label: "Περιεχόμενο", name: "body", widget: "markdown"}
+
+  # Ομάδες
+  - name: "teams"
+    label: "Ομάδες"
+    folder: "content/teams"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Όνομα Ομάδας", name: "title", widget: "string"}
+      - {label: "Κατηγορία", name: "category", widget: "string"}
+      - {label: "Προπονητής", name: "coach", widget: "string"}
+      - {label: "Περιγραφή", name: "description", widget: "text"}
+
+  # Εκδηλώσεις
+  - name: "events"
+    label: "Εκδηλώσεις"
+    folder: "content/events"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Τίτλος", name: "title", widget: "string"}
+      - {label: "Ημερομηνία", name: "date", widget: "datetime"}
+      - {label: "Τοποθεσία", name: "location", widget: "string"}
+      - {label: "Περιγραφή", name: "body", widget: "markdown"}
+
+  # Φωτογραφίες
+  - name: "gallery"
+    label: "Φωτογραφίες"
+    folder: "content/gallery"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Τίτλος Άλμπουμ", name: "title", widget: "string"}
+      - {label: "Ημερομηνία", name: "date", widget: "datetime"}
+      - label: "Φωτογραφίες"
+        name: "photos"
+        widget: "list"
+        fields:
+          - {label: "Εικόνα", name: "image", widget: "image"}
+          - {label: "Λεζάντα", name: "caption", widget: "string", required: false}
